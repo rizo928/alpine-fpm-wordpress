@@ -57,5 +57,7 @@ COPY docker-entrypoint.sh /usr/local/bin/
 RUN chown root:root /usr/local/bin/docker-entrypoint.sh && \
     chmod 755 /usr/local/bin/docker-entrypoint.sh
 
+EXPOSE 80
+
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["php-fpm"]
