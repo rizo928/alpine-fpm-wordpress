@@ -6,7 +6,7 @@ RUN apk add --no-cache \
 		bash \
 # BusyBox sed is not sufficient for some of our sed expressions
 		sed
-
+ENV PATH=/user/local/bin:$PATH
 # install the PHP extensions we need
 RUN set -ex; \
 	\
@@ -54,6 +54,8 @@ RUN set -ex; \
 	chown -R www-data:www-data /usr/src/wordpress
 
 COPY docker-entrypoint.sh /usr/local/bin/
+RUN chown root:root /usr/local/bin/docker-entrypoint.sh && \
+    chmod 755 /usr/local/bin/docker-entrypoint.sh
 
-ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["php-fpm"]
